@@ -14,7 +14,8 @@ More info here:
 # Installation and setup
 * Maven
 - TODO
-* Gradle
+* Gradle (Android)
+
   Step 1. Add this in your root build.gradle at the end of the repositories:
 ```Gradle
 allprojects {
@@ -38,7 +39,7 @@ dependencies {
 ## Using your API key
 * Create a new APIWrapper Object by passing you 3Scale key
 ``` java
-APIWrapper wrapper = new APIWrapper(context, "YOUR_API_KEY");
+APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
 ```
 
 ## Usage
