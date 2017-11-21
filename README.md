@@ -244,3 +244,4 @@ wrapper.search(APIWrapper.Endpoint.COMPANIES, params, new onSuccessCallback(){
 
 /* The sent request will look like this:
 https://api-2445582011268.apicast.io/companies/?search=rockstar&fields=name,logo&filter[name][in]=rockstar&limit=5&offset=0&order=name:desc */
+```
