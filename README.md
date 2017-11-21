@@ -11,9 +11,17 @@ More info here:
 * [About the API](https://www.igdb.com/api)
 * [API Documentation](https://igdb.github.io/api/about/welcome/)
 
+## Libraries
+This wrapper uses three libraries for http requests & JSON parsing.
+* [OkHttp3](https://github.com/square/okhttp)
+* [Okio]( https://github.com/square/okio)
+* [JSON-java]( https://github.com/stleary/JSON-java)
+
 # Installation and setup
-* Maven
-- TODO
+* ZIP
+
+Download ZIP from GitHub and add as external library to your project
+
 * Gradle (Android)
 
   Step 1. Add this in your root build.gradle at the end of the repositories:
