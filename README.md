@@ -18,6 +18,16 @@ This wrapper uses three libraries for http requests & JSON parsing.
 * [JSON-java]( https://github.com/stleary/JSON-java)
 
 # Installation and setup
+* Maven 
+```maven
+<plugin>
+    <groupId>com.igdb.api-java</groupId>
+    <artifactId>api-java</artifactId>
+    <version>1.1</version>
+</plugin>
+```
+
+
 * ZIP
 
 Download ZIP from GitHub and add as external library to your project
