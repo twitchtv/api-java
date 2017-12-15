@@ -1,17 +1,17 @@
-package Tests;
 
-import Source.APIWrapper;
 
-import Source.Parameters;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Test;
+import org.junit.Assert;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.*;
+import static com.sun.tools.internal.ws.wsdl.parser.Util.fail;
+import static org.junit.Assert.assertTrue;
+
 
 /**
  * Created by emilasberg on 2017-09-12.
@@ -76,14 +76,14 @@ public class APIWrapperTest {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
             }
 
             @Override
             public void onError(Exception error) {
                 System.out.println("Query:  Error in games: " + error.getMessage());
-                fail();
+                Assert.fail();
             }
         });
         lock.await(20000, TimeUnit.MILLISECONDS);
@@ -106,15 +106,13 @@ public class APIWrapperTest {
                     assertTrue(s.equals("A First Look Inside the Sailor Moon Museum Exhibit"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
             @Override
             public void onError(Exception error) {
-                fail();
-            }
+                Assert.fail();            }
         });
         lock.await(20000, TimeUnit.MILLISECONDS);
 
@@ -137,8 +135,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Commander Shepard (female)"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
@@ -168,8 +165,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("The Elder Scrolls"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
@@ -199,8 +195,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Lionhead Studios"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
@@ -230,8 +225,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Warhammer 40,000"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
@@ -261,8 +255,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("24221"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
-                }
+                    Assert.fail();                }
 
             }
 
@@ -292,7 +285,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("theRadBrad"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -323,7 +316,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Unreal Engine"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -353,7 +346,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Massively Multiplayer Online (MMO)"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -384,7 +377,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Shooter"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -415,7 +408,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("zombies"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -446,7 +439,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("David Falkner"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -508,7 +501,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Text"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -539,7 +532,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("2008-Oct-20"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -569,7 +562,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Marvel vs. Capcom: Infinite"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -599,7 +592,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Kotaku"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -630,7 +623,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Erotic"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -660,7 +653,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("This is a game"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -691,7 +684,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("Assistant External Resources Producer"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }
@@ -721,7 +714,7 @@ public class APIWrapperTest {
                     assertTrue(s.equals("493"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    fail();
+                    Assert.fail();
                 }
 
             }

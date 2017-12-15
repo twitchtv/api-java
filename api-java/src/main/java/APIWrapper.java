@@ -1,16 +1,14 @@
-package Source;
 
 import okhttp3.*;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
-/**
- * Created by Filip on 2017-11-21.
- */
+
 public class APIWrapper {
 
-    private static final String API_URL = "https://api-2445582011268.apicast.io/";
+    private static final String API_URL = "https://api-2445582011268.apicast.io";
     private static final String API_Header = "user-key";
     private static String API_KEY = "";
 
@@ -44,7 +42,7 @@ public class APIWrapper {
      **/
     public void getJSONArray(String url, final onSuccessCallback callback){
 
-        url = API_URL + url;
+        url = API_URL + "/" + url;
 
         Request request = new Request.Builder()
                 .url(url)
@@ -77,13 +75,13 @@ public class APIWrapper {
      *
      **/
     public void getJSONArray(String url, final Headers customHeaders, final onSuccessCallback callback){
-        url = API_URL + url;
-        
+        url = API_URL + "/" + url;
+
         Request request = new Request.Builder()
                 .url(url)
                 .headers(customHeaders)
                 .build();
-        
+
         httpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -314,7 +312,7 @@ public class APIWrapper {
      *
      * @param parameters    The arguments added to specify the result, Ex parameters.addFilter("[cover][exists]").
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
-         *                  API.
+     *                  API.
      * */
     public void gameModes(Parameters parameters, final onSuccessCallback callback){
         getJSONArray(parameters.buildQuery(Endpoint.GAME_MODES), new onSuccessCallback() {
@@ -582,5 +580,110 @@ public class APIWrapper {
             }
         });
     }
-    
+
+    /**
+     * scroll method scrolls through the endpoint and returns ALL data from the endpoint
+     *
+     * @param endpoint      The endpoint to scroll through.
+     * @param parameters    The arguments added to specify the result,  Ex parameters.addFilter("[cover][exists]").
+     * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
+     *                      API.
+     * */
+    public void scroll(Endpoint endpoint, final Parameters parameters, final onSuccessCallback callback){
+
+        if (parameters.scroll.equals("")) {
+            parameters.addScroll("1"); // Activate scroll
+        }
+        if (parameters.limit.equals("")) {
+            parameters.addLimit("10");
+        }
+
+        String query = parameters.buildQuery(endpoint);
+
+        query = API_URL + "/" + query;
+
+        Request request = new Request.Builder()
+                .url(query)
+                .header("user-key", API_KEY)
+                .addHeader("Accept", "application/json")
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onError(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Float X_COUNT = Float.parseFloat(response.header("X-Count"));
+                String X_NEXT_PAGE = response.header("X-Next-Page");
+                Float limit = Float.parseFloat(parameters.limit.replace("&limit=", ""));
+                int pages = Math.round(X_COUNT / limit) - 1;
+
+                callback.onSuccess(new JSONArray(response.body().string()));
+
+                scrollThrough(pages, X_NEXT_PAGE, callback);
+
+            }
+        });
+    }
+
+    /**
+     * scrollThrough method is private and only used by the scroll method. This method takes the next page url
+     * and scrolls through it.
+     *
+     * @param pages         Number of pages to scroll through
+     * @param url           The X_NEXT_PAGE url
+     * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
+     *                      API.
+     * */
+    private void scrollThrough(int pages, String url, final onSuccessCallback callback) {
+        String query = API_URL + url;
+        for (int i = 0; i < pages; i++) {
+            Request request = new Request.Builder()
+                    .url(query)
+                    .header("user-key", API_KEY)
+                    .addHeader("Accept", "application/json")
+                    .build();
+
+            try {
+                Response response = httpClient.newCall(request).execute();
+                callback.onSuccess(new JSONArray(response.body().string()));
+            } catch (IOException e) {
+                callback.onError(e);
+            }
+        }
+    }
+
+    /**
+     * webhook method creates a new webhook connection.
+     *
+     * @param url           The X_NEXT_PAGE url
+     * @param category      The category is the type of data the webhook should push
+     * @param secret        The secret is the users own authorization
+     * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
+     *                      API.
+     * */
+    public void webhook(String url, int category, String secret, onSuccessCallback callback) {
+//        String webhookRequestData = "\"{\"url\":"+url+"\"category\":"+category+"\"secret\":"+secret+"}";
+        RequestBody webhookRequestData = new FormBody.Builder()
+                .add("url", url).add("category", "" + category).add("secret", secret)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(API_URL + "webhooks")
+                .header("user-key", API_KEY)
+                .addHeader("Accept", "application/json")
+                .post(webhookRequestData)
+                .build();
+
+        try {
+            Response response = httpClient.newCall(request).execute();
+            callback.onSuccess(new JSONArray(response.body().string()));
+        } catch (IOException e) {
+            callback.onError(e);
+        }
+    }
+
 }
