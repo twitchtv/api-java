@@ -1,5 +1,5 @@
 
-# api-android-java
+# api-java
 A Java wrapper for the IGDB.com Free Video Game Database API.
 
 ## About IGDB
