@@ -241,8 +241,8 @@ wrapper.search(Endpoint.PLATFORMS, params, new OnSuccessCallback(){
 https://api-2445582011268.apicast.io/platforms/?search=Atari&fields=name&limit=2 */
 
 /*
-Search for up to five Zelda games with release dates between 1 Jan and
-31 Dec 2011, sorted by release date in descending order.*/ 
+Search for up to five Zelda games with release dates between 1 Jan and 31 Dec 2011, sorted by release date in descending order.
+*/ 
 
 Parameters params = new Parameters()
 	.addSearch("Zelda")
@@ -269,7 +269,8 @@ wrapper.search(Endpoint.PLATFORMS, params, new OnSuccessCallback(){
 https://api-2445582011268.apicast.io/games/?search=Zelda&fields=name,release_dates.date,rating,hypes,cover&filter[release_dates.date][gt]=2010-12-31&filter[release_dates.date][lt]=2012-01-01&limit=5&order=release_dates.date:desc */
 
 /*
-Search for two specific games by their IDs*/
+Search for two specific games by their IDs
+*/
 
 Parameters params = new Parameters()
 	.addIds(“18472,18228”)
@@ -288,11 +289,12 @@ wrapper.games(params, new OnSuccessCallback(){
 });
 
 /* The sent request will look like this:
-https://api-2445582011268.apicast.io/games/18472,18228?fields=name,cover */
+https://api-2445582011268.apicast.io/games/18472,18228?fields=name,cover 
+*/
 
 /*
-Search for companies with 'rockstar' in their name. Return up to five
-results sorted by name in descending order*/
+Search for companies with 'rockstar' in their name. Return up to five results sorted by name in descending order
+*/
 
 Parameters params = new Parameters()
 	.addSearch("rockstar")
