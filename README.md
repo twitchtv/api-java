@@ -226,7 +226,7 @@ Parameters params = new Parameters()
 	.addFields("name")
 	.addLimit("2");
 
-wrapper.search(APIWrapper.Endpoint.PLATFORMS, params, new onSuccessCallback(){
+wrapper.search(Endpoint.PLATFORMS, params, new OnSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// JSONArray containing 2 Atari platforms
@@ -254,7 +254,7 @@ Parameters params = new Parameters()
 	.addOffset("0")
 	.addOrder(“release_dates.date:desc”);
 
-wrapper.search(APIWrapper.Endpoint.PLATFORMS, params, new onSuccessCallback(){
+wrapper.search(Endpoint.PLATFORMS, params, new OnSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// JSONArray containing 5 Zelda games
@@ -276,7 +276,7 @@ Parameters params = new Parameters()
 	.addIds(“18472,18228”)
 	.addFields(“name,cover”);
 
-wrapper.games(params, new onSuccessCallback(){
+wrapper.games(params, new OnSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// JSONArray containing 2 games
@@ -303,7 +303,7 @@ Parameters params = new Parameters()
 	.addOffset("0")
 	.addOrder(“name:desc”);
 
-wrapper.search(APIWrapper.Endpoint.COMPANIES, params, new onSuccessCallback(){
+wrapper.search(Endpoint.COMPANIES, params, new OnSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// JSONArray containing five companies with rockstar in their name
