@@ -245,6 +245,7 @@ https://api-2445582011268.apicast.io/platforms/?search=Atari&fields=name&limit=2
 Search for up to five Zelda games with release dates between 1 Jan and
 31 Dec 2011, sorted by release date in descending order.
 */ 
+```Java
 Parameters params = new Parameters()
 	.addSearch("Zelda")
 	.addFields(“name,release_dates.date,rating,hypes,cover”)
