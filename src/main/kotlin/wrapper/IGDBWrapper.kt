@@ -1,6 +1,6 @@
-package Wrapper
+package wrapper
 
-import callback.onSuccessCallback
+import callback.OnSuccessCallback
 import okhttp3.*
 import org.json.JSONArray
 import java.io.IOException
@@ -15,12 +15,16 @@ import java.io.IOException
  * Created by Filip
 *
 **/
-class IGDBWrapper(private val API_KEY: String) {
-    private val API_URL: String = "https://api-endpoint.igdb.com/"
-    private val API_HEADER: String = "user-key"
-    private val header = Headers.Builder().add(API_HEADER, API_KEY).add("Accept", "application/json").build()
-
+class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, val debug: Boolean = false) {
+    private var apiURL: String = "https://api-endpoint.igdb.com/"
+    private val apiHeader: String = "user-key"
     private var httpClient: OkHttpClient = OkHttpClient()
+
+    init {
+        if (version == Version.PRO) {
+            apiURL += "pro/"
+        }
+    }
 
     /**
      * This method returns a JSONArray with the specified data requested,
@@ -31,12 +35,16 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback  The callback return the response from the server in the form of a JSONArray
      *
      **/
-    fun getJSONArray(url: String, callback: onSuccessCallback) {
-        val completeURL = API_URL + url
+    fun getJSONArray(url: String, callback: OnSuccessCallback) {
+        val completeURL = apiURL + url
+
+        if (debug) {
+            println(completeURL)
+        }
 
         val request: Request = Request.Builder()
                 .url(completeURL)
-                .header(API_HEADER, API_KEY)
+                .header(apiHeader, API_KEY)
                 .addHeader("Accept", "application/json")
                 .build()
 
@@ -63,8 +71,8 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback          The callback return the response from the server in the form of a JSONArray
      *
      **/
-    fun getJSONArray(url: String, headers: Headers, callback: onSuccessCallback) {
-        val completeURL = API_URL + url
+    fun getJSONArray(url: String, headers: Headers, callback: OnSuccessCallback) {
+        val completeURL = apiURL + url
 
         val request: Request = Request.Builder()
                 .url(completeURL)
@@ -92,7 +100,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * **/
-    fun search(endpoint: Endpoints, parameters: Parameters, callback: onSuccessCallback) {
+    fun search(endpoint: Endpoints, parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(endpoint), callback)
     }
 
@@ -103,7 +111,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun games(parameters: Parameters, callback: onSuccessCallback) {
+    fun games(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.GAMES), callback)
     }
 
@@ -114,7 +122,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun pulses(parameters: Parameters, callback: onSuccessCallback) {
+    fun pulses(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PULSES), callback)
     }
 
@@ -125,7 +133,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun characters(parameters: Parameters, callback: onSuccessCallback) {
+    fun characters(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.CHARACTERS), callback)
     }
 
@@ -136,7 +144,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun collections(parameters: Parameters, callback: onSuccessCallback) {
+    fun collections(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.COLLECTIONS), callback)
     }
 
@@ -147,7 +155,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun companies(parameters: Parameters, callback: onSuccessCallback) {
+    fun companies(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.COMPANIES), callback)
     }
 
@@ -158,7 +166,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun franshises(parameters: Parameters, callback: onSuccessCallback) {
+    fun franshises(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.FRANCHISES), callback)
     }
 
@@ -169,7 +177,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun feeds(parameters: Parameters, callback: onSuccessCallback) {
+    fun feeds(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.FEEDS), callback)
     }
 
@@ -180,7 +188,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun pages(parameters: Parameters, callback: onSuccessCallback) {
+    fun pages(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PAGES), callback)
     }
 
@@ -191,7 +199,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun gameEngines(parameters: Parameters, callback: onSuccessCallback) {
+    fun gameEngines(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.GAME_ENGINES), callback)
     }
 
@@ -202,7 +210,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                  API.
      **/
-    fun gameModes(parameters: Parameters, callback: onSuccessCallback) {
+    fun gameModes(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.GAME_MODES), callback)
     }
 
@@ -213,7 +221,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun genres(parameters: Parameters, callback: onSuccessCallback) {
+    fun genres(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.GENRES), callback)
     }
 
@@ -224,7 +232,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun keywords(parameters: Parameters, callback: onSuccessCallback) {
+    fun keywords(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.KEYWORDS), callback)
     }
 
@@ -235,7 +243,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun people(parameters: Parameters, callback: onSuccessCallback) {
+    fun people(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PEOPLE), callback)
     }
 
@@ -246,7 +254,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun platforms(parameters: Parameters, callback: onSuccessCallback) {
+    fun platforms(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PLATFORMS), callback)
     }
 
@@ -258,7 +266,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun playerPerspectives(parameters: Parameters, callback: onSuccessCallback) {
+    fun playerPerspectives(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PLAYER_PERSPECTIVES), callback)
     }
 
@@ -269,7 +277,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun releaseDates(parameters: Parameters, callback: onSuccessCallback) {
+    fun releaseDates(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.RELEASE_DATES), callback)
     }
 
@@ -280,7 +288,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun pulseGroups(parameters: Parameters, callback: onSuccessCallback) {
+    fun pulseGroups(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PULSE_GROUPS), callback)
     }
 
@@ -291,7 +299,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun pulseSources(parameters: Parameters, callback: onSuccessCallback) {
+    fun pulseSources(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.PULSE_SOURCES), callback)
     }
 
@@ -302,7 +310,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun themes(parameters: Parameters, callback: onSuccessCallback) {
+    fun themes(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.THEMES), callback)
     }
 
@@ -313,7 +321,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun reviews(parameters: Parameters, callback: onSuccessCallback) {
+    fun reviews(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.REVIEWS), callback)
     }
 
@@ -324,7 +332,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun titles(parameters: Parameters, callback: onSuccessCallback) {
+    fun titles(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.TITLES), callback)
     }
 
@@ -335,7 +343,7 @@ class IGDBWrapper(private val API_KEY: String) {
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      **/
-    fun credits(parameters: Parameters, callback: onSuccessCallback) {
+    fun credits(parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(Endpoints.CREDITS), callback)
     }
 

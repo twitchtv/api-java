@@ -1,4 +1,4 @@
-package Wrapper
+package wrapper
 
 import java.util.ArrayList
 
@@ -87,7 +87,6 @@ class Parameters {
         }
 
         query += filter + expand + order + limit + offset + scroll
-        println("Query: " + query)
         return query
     }
 

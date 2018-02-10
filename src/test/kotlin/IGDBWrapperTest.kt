@@ -1,12 +1,14 @@
 
-import Wrapper.Endpoints
-import Wrapper.IGDBWrapper
-import Wrapper.Parameters
-import callback.onSuccessCallback
+
+import callback.OnSuccessCallback
 import junit.framework.Assert.fail
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import wrapper.IGDBWrapper
+import wrapper.Version
+import wrapper.Endpoints
+import wrapper.Parameters
 import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -17,7 +19,7 @@ class IGDBWrapperTest {
     @org.junit.Before
     fun setUp(){
         val key: String = System.getenv("API_KEY")
-        wrapper = IGDBWrapper(key)
+        wrapper = IGDBWrapper(key, Version.PRO, true)
     }
 
     @org.junit.Test
@@ -28,7 +30,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.search(Endpoints.GAMES, params, object: onSuccessCallback {
+        wrapper.search(Endpoints.GAMES, params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -55,7 +57,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.games(params, object: onSuccessCallback {
+        wrapper.games(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -81,7 +83,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.pulses(params, object: onSuccessCallback {
+        wrapper.pulses(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -107,7 +109,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.genres(params, object: onSuccessCallback {
+        wrapper.genres(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -133,7 +135,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.platforms(params, object: onSuccessCallback {
+        wrapper.platforms(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -159,7 +161,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.releaseDates(params, object: onSuccessCallback {
+        wrapper.releaseDates(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -185,7 +187,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.pulseGroups(params, object: onSuccessCallback {
+        wrapper.pulseGroups(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -211,7 +213,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.pulseSources(params, object: onSuccessCallback {
+        wrapper.pulseSources(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -237,7 +239,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.themes(params, object: onSuccessCallback {
+        wrapper.themes(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
@@ -263,7 +265,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.reviews(params, object: onSuccessCallback {
+        wrapper.reviews(params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
