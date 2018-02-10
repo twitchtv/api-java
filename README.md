@@ -63,11 +63,13 @@ IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
 ```
 ``` kotlin
 val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY")
+// val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY", Version.PRO, true) 
+// Activates pro user access and dispalys query prints
 ```
 
 ## Usage
 All API endpoints are available as methods in the APIWrapper object. Each method has the following signature:
-### wrapper.endpoint(Parameters, onSuccessCallback)
+### wrapper.endpoint(Parameters, OnSuccessCallback)
 __Arguments__
 * Parameters - An object specifying the operations to be performed, ex. expander, filter, ordering etc. These Operations can be found in the API documentation under References: (https://igdb.github.io/api/references/)
 * onSuccessCallback - The callback is used to return to the previous method once the wrapper has retrieved the desired data from the API.
@@ -89,7 +91,7 @@ wrapper.games(params, new OnSuccessCallback(){
 
         @Override
         public void onError(Exception error) {
-            // Do something on error
+            	// Do something on error
         }
 });
 ```
@@ -106,7 +108,7 @@ wrapper.games(params, object: OnSuccessCallback{
         }
 
         override fun onError(Exception error) {
-            // Do something on error
+            	// Do something on error
         }
 })
 
@@ -118,13 +120,14 @@ The rest of the endpoints work similarly to the Games endpoint except for two ca
 
 * Requesting search from the API
 ``` java
-APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
+// Java
+IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
 Parameters params = new Parameters()
 	.addSearch("searchQuery")
 	.addFields("*")
 	.addOrder("published_at:desc");
 
-wrapper.search(APIWrapper.Endpoint.GAMES, params, new onSuccessCallback(){
+wrapper.search(Endpoint.GAMES, params, new onSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// Do something with resulting JSONArray
@@ -132,9 +135,27 @@ wrapper.search(APIWrapper.Endpoint.GAMES, params, new onSuccessCallback(){
 
         @Override
         public void onError(Exception error) {
-            // Do something on error
+            	// Do something on error
         }
 });
+```
+``` kotlin
+// Kotlin
+val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY")
+val params: Parameters = Parameters()
+	.addSearch("searchQuery")
+	.addFields("*")
+	.addOrder("published_at:desc")
+	
+wrapper.search(Endpoint.GAMES, params, object: OnSuccessCallback{
+        override fun onSuccess(JSONArray result) {
+        	// Do something with resulting JSONArray
+        }
+
+        override fun onError(Exception error) {
+            	// Do something on error
+        }
+})
 
 /* The sent request will look like this:
 https://api-2445582011268.apicast.io/games/?search=searchQuery&fields=*&order=published_at:desc */
@@ -144,7 +165,8 @@ The search endpoint need an extra parameter, Endpoint, as you can search any end
 
 * Filtering a request result
 ``` java
-APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
+// Java
+IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
 Parameters params = new Parameters()
 	.addFields("*")
 	.addFilter("[themes][not_in]=42")
@@ -158,9 +180,27 @@ wrapper.games(params, new onSuccessCallback(){
 
         @Override
         public void onError(Exception error) {
-            // Do something on error
+            	// Do something on error
         }
 });
+```
+``` kotlin
+// Kotlin
+val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY")
+val params: Parameters = Parameters()
+	.addFields("*")
+	.addFilter("[themes][not_in]=42")
+	.addOrder("published_at:desc")
+	
+wrapper.games(params, object: OnSuccessCallback{
+        override fun onSuccess(JSONArray result) {
+        	// Do something with resulting JSONArray
+        }
+
+        override fun onError(Exception error) {
+            	// Do something on error
+        }
+})
 
 /* The sent request will look like this:
 https://api-2445582011268.apicast.io/games/?search=searchQuery&fields=*&filter[themes][not_in]=42&order=published_at:desc */
@@ -173,10 +213,10 @@ The rest of the available Endpoints are [Available Here](https://igdb.github.io/
 The IGDB API documentation provides [details on search parameters](https://igdb.github.io/api/references/filters/).
 
 
-## More examples
+## More examples in java
 
 ```java
-APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
+IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
 
 /*
 Search for up to two Atari platforms and return their names
