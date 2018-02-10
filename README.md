@@ -1,6 +1,6 @@
 
 # api-java
-A Java wrapper for the IGDB.com Free Video Game Database API.
+A Java (Kotlin) wrapper for the IGDB.com Free Video Game Database API.
 
 ## About IGDB
 One of the principles behind IGDB.com is accessibility of data. We wish to share the data with anyone who wants to build cool videogame oriented websites, apps and services. This means that the information you contribute to IGDB.com can be used by other projects as well.
@@ -20,17 +20,19 @@ This wrapper uses three libraries for http requests & JSON parsing.
 # Installation and setup
 * Maven 
 ```maven
-<plugin>
-    <groupId>com.igdb.api-java</groupId>
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+	<url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.github.igdb</groupId>
     <artifactId>api-java</artifactId>
-    <version>1.1</version>
-</plugin>
+    <version>2.0.0</version>
+</dependency>
 ```
-
-
-* ZIP
-
-Download ZIP from GitHub and add as external library to your project
 
 * Gradle (Android)
 
@@ -46,7 +48,7 @@ allprojects {
   Step 2. Add the dependency
 ``` Gradle
 dependencies {
-	compile 'com.github.igdb:api-java:1.0'
+	compile 'com.github.igdb:api-java:2.0.0'
 }
 ```
   Step 3. Add internet permissions in the manifest
@@ -55,9 +57,12 @@ dependencies {
 ```
 
 ## Using your API key
-* Create a new APIWrapper Object by passing you 3Scale key
+* Create a new APIWrapper Object by passing you 3Scale key, setting verison (Pro or standard), and set isDebug (prints queries)
 ``` java
-APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
+IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
+```
+``` kotlin
+val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY")
 ```
 
 ## Usage
@@ -68,14 +73,15 @@ __Arguments__
 * onSuccessCallback - The callback is used to return to the previous method once the wrapper has retrieved the desired data from the API.
 
 __Example__ 
-* Requesting games from API
+* Requesting games from API 
 ``` java
-APIWrapper wrapper = new APIWrapper("YOUR_API_KEY");
+// Java
+IGDBWrapper wrapper = new IGDBWrapper("YOUR_API_KEY", Version.Standard, false);
 Parameters params = new Parameters()
 	.addFields("*")
-	.addorder("published_at:desc");
+	.addOrder("published_at:desc");
 	
-wrapper.games(params, new onSuccessCallback(){
+wrapper.games(params, new OnSuccessCallback(){
 	@Override
         public void onSuccess(JSONArray result) {
         	// Do something with resulting JSONArray
@@ -86,6 +92,23 @@ wrapper.games(params, new onSuccessCallback(){
             // Do something on error
         }
 });
+```
+``` kotlin
+// Kotlin
+val wrapper: IGDBWrapper = IGDBWrapper("YOUR_API_KEY")
+val params: Parameters = Parameters()
+	.addFields("*")
+	.addOrder("published_at:desc")
+	
+wrapper.games(params, object: OnSuccessCallback{
+        override fun onSuccess(JSONArray result) {
+        	// Do something with resulting JSONArray
+        }
+
+        override fun onError(Exception error) {
+            // Do something on error
+        }
+})
 
 /* The sent request will look like this:
 https://api-2445582011268.apicast.io/games/?fields=*&order=published_at:desc */
