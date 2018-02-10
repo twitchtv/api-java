@@ -100,7 +100,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * **/
-    fun search(endpoint: Endpoints, parameters: Parameters, callback: OnSuccessCallback) {
+    fun search(endpoint: Endpoint, parameters: Parameters, callback: OnSuccessCallback) {
         getJSONArray(parameters.buildQuery(endpoint), callback)
     }
 
@@ -112,7 +112,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun games(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.GAMES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.GAMES), callback)
     }
 
     /**
@@ -123,7 +123,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun pulses(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PULSES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PULSES), callback)
     }
 
     /**
@@ -134,7 +134,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun characters(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.CHARACTERS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.CHARACTERS), callback)
     }
 
     /**
@@ -145,7 +145,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun collections(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.COLLECTIONS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.COLLECTIONS), callback)
     }
 
     /**
@@ -156,7 +156,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun companies(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.COMPANIES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.COMPANIES), callback)
     }
 
     /**
@@ -166,8 +166,8 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      * @param callback      Callback which gets activated as soon as the JSONArray is returned from the
      *                      API.
      * */
-    fun franshises(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.FRANCHISES), callback)
+    fun franchises(parameters: Parameters, callback: OnSuccessCallback) {
+        getJSONArray(parameters.buildQuery(Endpoint.FRANCHISES), callback)
     }
 
     /**
@@ -178,7 +178,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun feeds(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.FEEDS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.FEEDS), callback)
     }
 
     /**
@@ -189,7 +189,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun pages(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PAGES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PAGES), callback)
     }
 
     /**
@@ -200,7 +200,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun gameEngines(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.GAME_ENGINES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.GAME_ENGINES), callback)
     }
 
     /**
@@ -211,7 +211,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                  API.
      **/
     fun gameModes(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.GAME_MODES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.GAME_MODES), callback)
     }
 
     /**
@@ -222,7 +222,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun genres(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.GENRES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.GENRES), callback)
     }
 
     /**
@@ -233,7 +233,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun keywords(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.KEYWORDS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.KEYWORDS), callback)
     }
 
     /**
@@ -244,7 +244,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun people(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PEOPLE), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PEOPLE), callback)
     }
 
     /**
@@ -255,7 +255,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun platforms(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PLATFORMS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PLATFORMS), callback)
     }
 
     /**
@@ -267,7 +267,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun playerPerspectives(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PLAYER_PERSPECTIVES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PLAYER_PERSPECTIVES), callback)
     }
 
     /**
@@ -278,7 +278,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      * */
     fun releaseDates(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.RELEASE_DATES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.RELEASE_DATES), callback)
     }
 
     /**
@@ -289,7 +289,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun pulseGroups(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PULSE_GROUPS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PULSE_GROUPS), callback)
     }
 
     /**
@@ -300,7 +300,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun pulseSources(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.PULSE_SOURCES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.PULSE_SOURCES), callback)
     }
 
     /**
@@ -311,7 +311,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun themes(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.THEMES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.THEMES), callback)
     }
 
     /**
@@ -322,7 +322,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun reviews(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.REVIEWS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.REVIEWS), callback)
     }
 
     /**
@@ -333,7 +333,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun titles(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.TITLES), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.TITLES), callback)
     }
 
     /**
@@ -344,7 +344,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      *                      API.
      **/
     fun credits(parameters: Parameters, callback: OnSuccessCallback) {
-        getJSONArray(parameters.buildQuery(Endpoints.CREDITS), callback)
+        getJSONArray(parameters.buildQuery(Endpoint.CREDITS), callback)
     }
 
 }

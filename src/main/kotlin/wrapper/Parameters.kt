@@ -69,7 +69,7 @@ class Parameters {
         return this
     }
 
-    fun buildQuery(endpoint: Endpoints): String {
+    fun buildQuery(endpoint: Endpoint): String {
         var filter = ""
         for (s in filters) {
             filter += s

@@ -7,7 +7,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import wrapper.IGDBWrapper
 import wrapper.Version
-import wrapper.Endpoints
+import wrapper.Endpoint
 import wrapper.Parameters
 import java.lang.Exception
 import java.util.concurrent.CountDownLatch
@@ -30,7 +30,7 @@ class IGDBWrapperTest {
 
         val lock: CountDownLatch = CountDownLatch(1)
 
-        wrapper.search(Endpoints.GAMES, params, object: OnSuccessCallback {
+        wrapper.search(Endpoint.GAMES, params, object: OnSuccessCallback {
             override fun onSuccess(result: JSONArray) {
                 try {
                     lock.countDown()
