@@ -1,14 +1,15 @@
 
 
+import callback.OnRequestSuccessCallback
 import callback.OnSuccessCallback
 import junit.framework.Assert.fail
+import okhttp3.Headers
+import okhttp3.RequestBody
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import wrapper.IGDBWrapper
-import wrapper.Version
-import wrapper.Endpoint
-import wrapper.Parameters
+import org.junit.Test
+import wrapper.*
 import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -19,10 +20,38 @@ class IGDBWrapperTest {
     @org.junit.Before
     fun setUp(){
         val key: String = System.getenv("API_KEY")
-        wrapper = IGDBWrapper(key, Version.PRO, true)
+        wrapper = IGDBWrapper(key, Version.STANDARD, true)
     }
 
-    @org.junit.Test
+    @Test
+    fun testPostReview() {
+        val completeURL = "private/rates/165141"
+        val authHeaders = Headers.Builder()
+                .add("user-key", System.getenv("API_KEY"))
+                .add("Accept", "application/json")
+                .add("Authorization", "Bearer 0933a367316cb2d1501f98b0d04057f1914c5859c68904f789177bbfa96b3162")
+                .add("Content-Type", "application/json")
+                .build()
+
+        val testRequestBody = "{\"rate\": {\"game\": " + 965 + ", \"rating\": " + 3 + "}}"
+        val body = RequestBody.create(null, testRequestBody)
+        val lock = CountDownLatch(1)
+
+        wrapper.getJSONArray(completeURL, authHeaders, HttpMethod.PATCH, body, object : OnRequestSuccessCallback() {
+
+            override fun onSuccess(result: JSONObject) {
+                lock.countDown()
+                print(result)
+            }
+
+            override fun onError(error: Exception) {
+                print(error)
+            }
+        })
+        lock.await(20, TimeUnit.SECONDS)
+    }
+
+    @Test
     fun search() {
         val params = Parameters()
                 .addSearch("mass effect")
@@ -43,6 +72,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -50,7 +82,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun games() {
         val params = Parameters()
                 .addIds("12356")
@@ -69,6 +101,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -76,7 +111,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun pulses() {
         val params = Parameters()
                 .addIds("12342")
@@ -95,6 +130,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -102,7 +140,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun genres() {
         val params = Parameters()
                 .addIds("5")
@@ -121,6 +159,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -128,7 +169,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun platforms() {
         val params = Parameters()
                 .addIds("5")
@@ -147,6 +188,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -154,7 +198,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun releaseDates() {
         val params = Parameters()
                 .addIds("4")
@@ -173,6 +217,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -180,7 +227,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun pulseGroups() {
         val params = Parameters()
                 .addIds("1254")
@@ -199,6 +246,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -206,7 +256,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun pulseSources() {
         val params = Parameters()
                 .addIds("1")
@@ -225,6 +275,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -232,7 +285,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun themes() {
         val params = Parameters()
                 .addIds("42")
@@ -251,6 +304,9 @@ class IGDBWrapperTest {
                 }
             }
 
+            override fun onSuccess(result: JSONObject) {
+            }
+
             override fun onError(error: Exception) {
                 fail("Received HTTP error: ${error.cause}")
             }
@@ -258,7 +314,7 @@ class IGDBWrapperTest {
         lock.await(20, TimeUnit.SECONDS)
     }
 
-    @org.junit.Test
+    @Test
     fun reviews() {
         val params = Parameters()
                 .addIds("42")
@@ -275,6 +331,9 @@ class IGDBWrapperTest {
                 } catch (e: JSONException) {
                     fail("JSONException! ${e.message}")
                 }
+            }
+
+            override fun onSuccess(result: JSONObject) {
             }
 
             override fun onError(error: Exception) {

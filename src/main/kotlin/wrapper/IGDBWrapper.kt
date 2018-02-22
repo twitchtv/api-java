@@ -3,7 +3,9 @@ package wrapper
 import callback.OnSuccessCallback
 import okhttp3.*
 import org.json.JSONArray
+import org.json.JSONObject
 import java.io.IOException
+import wrapper.HttpMethod
 
 /**
 * Wrapper.IGDBWrapper updated to Kotlin from java
@@ -68,21 +70,24 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
      * @param url               The url stands for the query, except for the standard 3Scale url,
      *                          where the requested data is specified.
      * @param headers           Add custom headers(okhttp3)
+     * @param HttpMehtod        Sets the request method, GET is standard
+     * @param requestBody       Sets the request body, requred Non Null for POST and PATCH
      * @param callback          The callback return the response from the server in the form of a JSONArray
      *
      **/
-    fun getJSONArray(url: String, headers: Headers, callback: OnSuccessCallback) {
+    fun getJSONArray(url: String, headers: Headers, HttpMehtod: HttpMethod = HttpMethod.GET, requestBody: RequestBody? = null, callback: OnSuccessCallback) {
         val completeURL = apiURL + url
 
         val request: Request = Request.Builder()
                 .url(completeURL)
+                .method(HttpMehtod.toString(), requestBody)
                 .headers(headers)
                 .build()
 
 
         httpClient.newCall(request).enqueue(object: Callback{
             override fun onResponse(call: Call?, response: Response?) {
-                val jsonResponse = JSONArray(response?.body()?.string())
+                val jsonResponse = JSONObject(response?.body()?.string())
                 callback.onSuccess(jsonResponse)
             }
 
@@ -91,6 +96,7 @@ class IGDBWrapper(private val API_KEY: String, version: Version = Version.PRO, v
             }
         })
     }
+
 
     /**
      * Search the IGDB API for information

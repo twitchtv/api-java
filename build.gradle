@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.10'
+    ext.kotlin_version = '1.2.21'
 
     repositories {
         mavenCentral()
@@ -10,7 +10,7 @@ buildscript {
 }
 
 group 'api-java'
-version '0.1.0'
+version '0.2.0'
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
