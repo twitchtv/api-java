@@ -23,33 +23,33 @@ class IGDBWrapperTest {
         wrapper = IGDBWrapper(key, Version.STANDARD, true)
     }
 
-    @Test
-    fun testPostReview() {
-        val completeURL = "private/rates/165141"
-        val authHeaders = Headers.Builder()
-                .add("user-key", System.getenv("API_KEY"))
-                .add("Accept", "application/json")
-                .add("Authorization", "Bearer 0933a367316cb2d1501f98b0d04057f1914c5859c68904f789177bbfa96b3162")
-                .add("Content-Type", "application/json")
-                .build()
-
-        val testRequestBody = "{\"rate\": {\"game\": " + 965 + ", \"rating\": " + 3 + "}}"
-        val body = RequestBody.create(null, testRequestBody)
-        val lock = CountDownLatch(1)
-
-        wrapper.getJSONArray(completeURL, authHeaders, HttpMethod.PATCH, body, object : OnRequestSuccessCallback() {
-
-            override fun onSuccess(result: JSONObject) {
-                lock.countDown()
-                print(result)
-            }
-
-            override fun onError(error: Exception) {
-                print(error)
-            }
-        })
-        lock.await(20, TimeUnit.SECONDS)
-    }
+//    @Test
+//    fun testPostReview() {
+//        val completeURL = "private/rates/165141"
+//        val authHeaders = Headers.Builder()
+//                .add("user-key", System.getenv("API_KEY"))
+//                .add("Accept", "application/json")
+//                .add("Authorization", "Bearer 0933a367316cb2d1501f98b0d04057f1914c5859c68904f789177bbfa96b3162")
+//                .add("Content-Type", "application/json")
+//                .build()
+//
+//        val testRequestBody = "{\"rate\": {\"game\": " + 965 + ", \"rating\": " + 3 + "}}"
+//        val body = RequestBody.create(null, testRequestBody)
+//        val lock = CountDownLatch(1)
+//
+//        wrapper.getJSONArray(completeURL, authHeaders, HttpMethod.PATCH, body, object : OnRequestSuccessCallback() {
+//
+//            override fun onSuccess(result: JSONObject) {
+//                lock.countDown()
+//                print(result)
+//            }
+//
+//            override fun onError(error: Exception) {
+//                print(error)
+//            }
+//        })
+//        lock.await(20, TimeUnit.SECONDS)
+//    }
 
     @Test
     fun search() {
