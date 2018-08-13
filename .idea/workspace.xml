@@ -649,9 +649,6 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
-      <envs>
-        <env name="API_KEY" value="3eecd65bd42230706b58a785ce4e9a42" />
-      </envs>
       <patterns />
     </configuration>
     <configuration name="IGDBWrapperTest.testPostReview" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
