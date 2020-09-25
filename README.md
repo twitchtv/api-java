@@ -1,3 +1,7 @@
+# Project is Deprecated and no longer supported!!
+
+Please migrate to another project like [IGDB-API-JVM](https://github.com/husnjak/IGDB-API-JVM).  
+This project will no longer get any updates
 
 # api-java
 A Java (Kotlin) wrapper for the IGDB.com Free Video Game Database API.
